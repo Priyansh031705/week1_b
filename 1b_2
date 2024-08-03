@@ -1,0 +1,32 @@
+#include <iostream>
+#include <sstream>
+#include <map>
+#include <string>
+using namespace std;
+int main() {
+    string paragraph;
+    map<string, int> wordCount;
+
+    cout << "Enter a paragraph: ";
+    getline(cin, paragraph);
+
+    istringstream stream(paragraph);
+    string word;
+
+       while (stream >> word) {
+        // Remove punctuation from the word
+        for (size_t i = 0; i < word.length(); ++i) {
+            if (ispunct(word[i])) {
+                word.erase(i--, 1);
+            }
+        }
+        ++wordCount[word];
+    }
+
+    cout << "Word frequencies:\n";
+    for (const auto& pair : wordCount) {
+        cout << pair.first << ": " << pair.second << '\n';
+    }
+
+    return 0;
+}
